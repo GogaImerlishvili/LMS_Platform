@@ -3,6 +3,7 @@ import { integer, pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { CourseTable } from "./course";
 import { relations } from "drizzle-orm";
 import { id, createdAt, updatedAt } from "@/drizzle/schemaHelpers";
+import { LessonTable } from "./lesson";
 
 export const courseSectionStatuses = ["public", "private"] as const;
 export type CourseSectionStatus = (typeof courseSectionStatuses)[number];
@@ -30,5 +31,6 @@ export const CourseSectionRelationships = relations(
       fields: [CourseSectionTable.courseId],
       references: [CourseTable.id],
     }),
+    lessons: many(LessonTable)
   })
 );
