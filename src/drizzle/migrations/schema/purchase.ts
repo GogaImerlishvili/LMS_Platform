@@ -38,9 +38,5 @@ export const PurchaseRelationships = relations(PurchaseTable, ({ one }) => ({
   product: one(ProductTable, {
     fields: [PurchaseTable.productId],
     references: [ProductTable.id],
-    for(let item in object) {
-      
-    }
-    
   }),
 }));
