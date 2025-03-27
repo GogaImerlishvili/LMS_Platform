@@ -1,12 +1,13 @@
 import { ReactNode, Suspense } from "react";
 import Link from "next/link";
-import { SignedIn, SignIn } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from "@clerk/nextjs";
 import { cookies } from "next/headers";
+import { Button } from "@/components/ui/button";
 
 export default function ConsumerLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
-    // await cookies()
+  // await cookies()
   return (
     <>
       <Navbar />
@@ -25,12 +26,44 @@ function Navbar() {
         >
           Web Dev Simplified
         </Link>
-        {/* <Suspense fallback={"loading"}> */}
-        {/* <SignedIn> */}
-            <Link className="hover:bg-accent/10 flex items-center px-2" href="/courses">My courses</Link>
-            <Link className="hover:bg-accent/10 flex items-center px-2" href="/purchases">Purchase History</Link>
-        {/* </SignedIn> */}
-        {/* </Suspense> */}
+        <Suspense fallback={"loading"}>
+        <SignedIn>
+        <Link
+          className="hover:bg-accent/10 flex items-center px-2"
+          href="/admin"
+        >
+          Admin
+        </Link>
+        <Link
+          className="hover:bg-accent/10 flex items-center px-2"
+          href="/courses"
+        >
+          My courses
+        </Link>
+        <Link
+          className="hover:bg-accent/10 flex items-center px-2"
+          href="/purchases"
+        >
+          Purchase History
+        </Link>
+        <div>
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonAvatarBox: { width: "100%", height: "100%" },
+              },
+            }}
+          />
+        </div>
+        </SignedIn>
+        </Suspense>
+        <Suspense>
+          <SignedOut>
+            <Button className="self-center">
+              <SignInButton>Sign In</SignInButton>
+            </Button>
+          </SignedOut>
+        </Suspense>
       </nav>
     </header>
   );
