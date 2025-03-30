@@ -1,8 +1,8 @@
-import { ReactNode, Suspense } from "react";
 import Link from "next/link";
-import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { cookies } from "next/headers";
 import { Button } from "@/components/ui/button";
+import { ReactNode, Suspense } from "react";
 
 export default function ConsumerLayout({
   children,
@@ -59,7 +59,7 @@ function Navbar() {
         </Suspense>
         <Suspense>
           <SignedOut>
-            <Button className="self-center">
+            <Button className="self-center" asChild>
               <SignInButton>Sign In</SignInButton>
             </Button>
           </SignedOut>
